@@ -11,7 +11,7 @@ Following components are used in this solution.
 Most important files to look at are:
 - viewmodel.js: Contains all the javascript of the application
 - site.css: The style definitions of the application generated from site.less
-- index.html: HTML makrup of the application
+- index.html: HTML markup of the application
 
 # Solved requirements
 - The application must be a static HTML5 application (only HTML, CSS, JavaScript, images, and fonts)
