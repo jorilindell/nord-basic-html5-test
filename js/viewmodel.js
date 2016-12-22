@@ -129,9 +129,12 @@ var ViewModel = function() {
 
   this.deleteUser = function() {
     self.users.remove(self.activeUser());
+	if(self.pageNumber() > self.totalPagesHolder().length) {
+		self.pageNumber(self.pageNumber() - 1);
+	}
   }
   /* PAGINATION RELATED FUNCTIONS AND VARIABLES */
-  this.pageNumber = ko.observable(0);
+  this.pageNumber = ko.observable(1);
   this.nbPerPage = 5;
   this.totalPagesHolder = ko.observableArray([]);
   this.totalPages = ko.computed(function() {
@@ -146,11 +149,11 @@ var ViewModel = function() {
   });
 
   this.pageController = function(targetPage) {
-    return self.pageNumber(targetPage - 1);
+    return self.pageNumber(targetPage);
   };
   
   this.paginatedUsers = ko.computed(function() {
-    var first = self.pageNumber() * self.nbPerPage;
+    const first = (self.pageNumber() - 1) * self.nbPerPage;
     return self.users.slice(first, first + self.nbPerPage);
   });
 };
