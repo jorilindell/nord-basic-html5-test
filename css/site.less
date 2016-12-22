@@ -1,0 +1,175 @@
+/* NAVBAR STYLES */
+.navbar-default {
+	background-color: #00ADBD;
+	border-color: #00ADBD;
+	border-radius: 0px;
+}
+.navbar-header {
+  .logo {
+	background: url(../img/logo-new.svg);
+	background-repeat: no-repeat;
+    padding: 0;
+	margin: 10px 0px;
+	display: block;
+	height: 40px;
+	width: 105px;
+	-webkit-background-size: cover;
+	background-size: cover;
+  }
+}
+/* ADD USER FORM STYLES */
+.form-user-add {
+	margin-top: 20px;
+	margin-bottom: 40px;
+  
+  .form-group {
+    margin-right: 15px;
+  }
+  .form-control {
+	background-color: #f6f6f6;
+	border: 1px solid #E3E3E3;
+	height: 48px;
+	font-size: 16px;
+  }
+  .form-control.name-field {
+	width: 300px;
+  }
+  .form-control.age-field {
+	width: 100px;
+  }
+  .btn-add {
+	background-color: #f6f6f6;
+	border: 1px solid #E3E3E3;
+	height: 48px;
+	width: 48px;
+	font-size: 20px;
+  }
+}
+
+.table-users { 
+  thead {
+    tr {
+      th {
+        cursor: pointer;
+        font-weight: normal;
+        padding: 8px 20px;
+        
+        .table-sort-icon {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+  tbody { 
+    tr { 
+      td {
+        font-size: 16px;
+        padding: 8px 20px;
+        .button-separator {
+          border-right: 1px solid #CBD1D8;
+          height: 24px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+          .btn-link {
+            color: #CBD1D8;
+          }
+          .btn-link.active {
+            color: #50A7FF;
+          }
+          .form-control {
+            border-radius: 0px;
+            font-size: 16px;
+            margin-left: -12px;
+          }
+          .gender-field {
+            width: auto;
+          }
+          .age-field {
+            width: 80px;
+          }
+        }
+
+      td.vertical-middle {
+		vertical-align: middle;
+      }
+    }
+    tr:nth-of-type(2n+1) {
+      background-color: #EEF3F9;
+    }
+    tr:nth-of-type(2n) {
+      background-color: #FFF;
+    }
+  }
+}
+
+.table-users > tbody > tr > td, .table-users > tbody > tr > th, .table-users > tfoot > tr > td, .table-users > tfoot > tr > th, .table-users > thead > tr > td, .table-users > thead > tr > th {
+	border-top: none;
+}
+/* PAGINATION STYLES */
+.pagination {
+  li { 
+    a {
+      border-radius: 20px;
+      margin: 0px 5px;
+      background-color: #FFF;
+      border-color: #FFF;
+      color: #333;
+    }
+  }
+  li.active {
+    a, a:hover, a:focus {
+      background-color: #D6EDEF;
+      border-color: #D6EDEF;
+      color: #333;
+    }
+  }
+  li:first-child { 
+    a {
+      border-radius: 20px;
+    }
+  }
+  li:last-child { 
+    a {
+      border-radius: 20px;
+    }
+  }
+}
+
+/* MODAL STYLES */
+.modal {
+  .modal-content {
+	border-radius: 0px;
+	background-color: #f8f8f8;
+  }
+  .modal-header {
+	border-bottom: none;
+  }
+  .modal-body {
+    p {
+		font-size: 18px;
+    }
+    .modal-button-container {
+      margin-top: 40px;
+      margin-bottom: 60px;
+      .btn {
+        border-radius: 4px;
+        text-transform: uppercase;
+      }
+      .btn:hover {
+        opacity: 0.8;
+      }
+      .btn-lg {
+        padding: 15px;
+      }
+      .btn-primary {
+        background-color: #00ADBD;
+        border-color: #00ADBD;
+      }
+      .btn-cancel {
+        background-color: #D7D7D7;
+        border-color: #D7D7D7;
+      }
+    }
+  } 
+}

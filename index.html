@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nord Preliminary Test</title>
+
+<!-- Bootstrap -->
+<link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="css/site.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header"> <a href="#" class="logo"></a> </div>
+    </div>
+  </nav>
+</header>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Add a person</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <form class="form-inline form-user-add">
+          <div class="form-group">
+            <input type="text" data-bind="value: newUserName, valueUpdate: 'keyup'" class="form-control name-field" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <select data-bind="options: Genders,
+                       value: newUserGender,
+                       optionsCaption: 'Gender'" class="form-control gender-field">
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="number" min="0" data-bind="numeric, value: newUserAge, valueUpdate: 'keyup'" class="form-control age-field" placeholder="Age">
+          </div>
+          <button class="btn btn-default btn-add" data-bind="enable: isUserValid(), click: addUser"><span class="fa fa-plus"></span></button>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-striped table-users" style="table-layout:fixed">
+          <colgroup>
+          <col class="col-md-6">
+          <col class="col-md-4">
+          <col class="col-md-4">
+          <col class="col-md-2">
+          </colgroup>
+          <thead>
+            <tr>
+              <th data-bind="click: function() { sortUsersTable('name') }"><span>Name</span><span class="table-sort-icon fa" data-bind="css: {'fa-sort': sortColumn() !== 'name', 'fa-sort-asc': (sortColumn() === 'name' && isSortAsc()), 'fa-sort-desc': (sortColumn() === 'name' && !isSortAsc()) }"></span> </th>
+              <th data-bind="click: function() { sortUsersTable('gender') }"><span>Gender</span><span class="table-sort-icon fa" data-bind="css: {'fa-sort': sortColumn() !== 'gender', 'fa-sort-asc': (sortColumn() === 'gender' && isSortAsc()), 'fa-sort-desc': (sortColumn() === 'gender' && !isSortAsc()) }"></span> </th>
+              <th data-bind="click: function() { sortUsersTable('age') }"><span>Age</span><span class="table-sort-icon fa" data-bind="css: {'fa-sort': sortColumn() !== 'age', 'fa-sort-asc': (sortColumn() === 'age' && isSortAsc()), 'fa-sort-desc': (sortColumn() === 'age' && !isSortAsc()) }"></span> </th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody data-bind="foreach: paginatedUsers">
+            <tr>
+              <td class="vertical-middle"><div data-bind="visible: !isInEdit()"> <span data-bind="text: name"></span> </div>
+                <div data-bind="visible: isInEdit()">
+                  <input type="text" data-bind="value: $root.userInEdit().name, valueUpdate: 'keyup'" class="form-control" placeholder="Name">
+                </div></td>
+              <td class="vertical-middle"><div data-bind="visible: !isInEdit()"> <span data-bind="text: gender"></span> </div>
+                <div data-bind="visible: isInEdit()">
+                  <select data-bind="options: Genders,
+                       value: $root.userInEdit().gender,
+                       optionsCaption: 'Genders'" class="form-control gender-field">
+                  </select>
+                </div></td>
+              <td class="vertical-middle"><div data-bind="visible: !isInEdit()"> <span data-bind="text: age"></span> </div>
+                <div data-bind="visible: isInEdit()">
+                  <input type="number" min="0" data-bind="numeric, value: $root.userInEdit().age, valueUpdate: 'keyup'" class="form-control age-field" placeholder="Age">
+                </div></td>
+              <td class="text-center vertical-middle"><button class="btn btn-link" data-bind="click: function() { $root.setUserToEditMode($data) }, visible: !isInEdit()" title="Edit user"><span class="fa fa-pencil"></span></button>
+                <button class="btn btn-link active" data-bind="click: $root.saveUserChanges, visible: isInEdit(), enable: $root.isUserInEditValid()" title="Save user"><span class="fa fa-pencil"></span></button>
+                <span class="button-separator"></span>
+                <button class="btn btn-link" data-toggle="modal" data-target="#deleteUserModal" data-bind="click: function() { $root.setActiveUser($data) }" title="Remove user"><span class="fa fa-close"></span></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-center">
+          <ul class="pagination">
+            <!-- ko foreach: totalPagesHolder -->
+            <li data-bind="css: {active: $parent.pageNumber() + 1 == $data }"><a href="#" data-bind="click: $parent.pageController"><span data-bind="text: $data"></span></a></li>
+            <!-- /ko -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELETE USER MODAL -->
+<div class="modal modal-dynamic fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content"> 
+      <!-- Modal header -->
+      <div class="modal-header">
+        <h1 class="modal-title text-center">Remove person</h1>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-center">
+              <p>Are you sure you want to remove this entry?</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-button-container">
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <div class="col-xs-6">
+                <button class="btn btn-lg btn-block btn-cancel" data-dismiss="modal">Cancel</button>
+              </div>
+              <div class="col-xs-6">
+                <button class="btn btn-lg btn-block btn-primary" data-dismiss="modal" data-bind="click: deleteUser">Yes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script> 
+<script type="text/javascript" src="bootstrap-3.3.7/js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="js/knockout-min.js"></script> 
+<script type="text/javascript" src="js/viewmodel.js"></script>
+</body>
+</html>
